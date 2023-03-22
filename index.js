@@ -47,22 +47,24 @@ exports.aliases = function (next, connection, params) {
         onMatch(match, action, rcpt)
     }
 
-    if (cfg[`@${host}`]) {              // @domain match
+    else if (cfg[`@${host}`]) {              // @domain match
         match = `@${host}`
         if (cfg[match].action) action = cfg[match].action
         onMatch(match, action, match)
     }
 
-    if (cfg[user]) {                    // user only match
+    else if (cfg[user]) {                    // user only match
         match = user
         if (cfg[user].action) action = cfg[user].action
         onMatch(match, action, rcpt)
     }
+
     else if (cfg[match[0]]) {
         match = match[0]
         if (cfg[match].action) action = cfg[match].action
         onMatch(match, action, rcpt)
     }
+
     else if (cfg[`${match[0]}@${host}`]) { // user prefix + domain match
         match = `${match[0]}@${host}`
         if (cfg[match].action) action = cfg[match].action
